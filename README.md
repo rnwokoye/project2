@@ -6,19 +6,18 @@ Project 2: Human Rights Visualizations
 
   Objective & Strategy:
   - Use human rights parameters to understand country performance
-  - Compare country(s) to global standards
-  - Using categories of.. Right to Health, Right to Housing, Right to Work 
-
-          
-     - Right to Health data will consist of...  
+  - Compare Country(s) to Global Standards
+  - Using Three Measurements of Human Rights
+ 
+     - Right to Health  
           - Children Surviving to Age 5
           - All Adults Age 15 Surviving to Age 60
           - Modern Contraceptive Use Rate
-     - Right to Housing data will consist of...
+     - Right to Housing
           - People With at Least Basic Sanitation
           - People With Water on Premises
           - People in Bottom Quintile With Affordable Housing
-     - Right to Work data will consist of...
+     - Right to Work
           - People not absolutely poor (>3.20 2011 PPP$ per day)
           - People not relatively poor (>50% median income)
           - Unemployed not long-term (>12 months) unemployed
