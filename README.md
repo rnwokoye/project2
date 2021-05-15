@@ -5,12 +5,10 @@ Alex Schultz, Jennifer Duffy, Richard Nwokoye
 Project 2: Human Rights Visualizations
 
   Objective & Strategy:
-     - Use human rights parameters to understand country performance
-     - Compare country(s) to global standards
-     - 
-  1) Right to Health
-  2) Right to Housing
-  3) Right to Work (if time permits)
+  - Use human rights parameters to understand country performance
+  - Compare country(s) to global standards
+  - Using categories of.. Right to Health, Right to Housing, Right to Work 
+
           
      - Right to Health data will consist of...  
           - Children Surviving to Age 5
