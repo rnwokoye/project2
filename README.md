@@ -30,7 +30,7 @@ Sources & Data
 - GapMinder
 
 Front End Technologies
-- Java'
+- Java
 - CSS
 - HTML
     
