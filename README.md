@@ -13,6 +13,7 @@ Project 2: Human Rights Visualizations
   3) Right to Work (if time permits)
           
      - Right to Health data will consist of...
+     -  
            - Children Surviving to Age 5
            - All Adults Age 15 Surviving to Age 60
            - Modern Contraceptive Use Rate
