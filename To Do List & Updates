@@ -5,6 +5,28 @@
     - Right to Housing
     - Right to Work
     - Right to Food
+    - Quality of Life ?
 
-- Visualization 1
-  - 
+
+
+- Dropdown Menu
+    - Change country to highlight in visualizations below
+
+- Country Info
+    - Data points for the country
+    - Explain variables we are using
+
+- Visualization 1: Single Country
+    - Bar/Line/Scatter/etc.
+        - Combination of Rights
+
+- Visualization 2: Single Country
+    - Bar/Line/Scatter/etc.
+        - Combination of Rights
+      
+- Visualization 3: All Countries
+    - Bubble Chart
+        - All countries will be here
+        - Interactive part will be highlighting of the country chosen
+        - Y Axis = GDP per Capita
+        - X Axis = Quality of Life
