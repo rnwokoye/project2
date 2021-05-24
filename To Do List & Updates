@@ -1,3 +1,5 @@
+5.19.21
+
 - Using only 2017 data
 - Variables Using
     - Right to Education
@@ -30,3 +32,11 @@
         - Interactive part will be highlighting of the country chosen
         - Y Axis = GDP per Capita
         - X Axis = Quality of Life
+
+
+
+5.22.21
+
+- Bar graph
+    - Y Axis: 0-100 axis
+    - X Axis: scores of country
