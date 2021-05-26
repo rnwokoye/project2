@@ -29,5 +29,24 @@ def get_data():
         Country_Info[Country_Name] = Country_data
         country_info.append(Country_data)
 
-    #return render_template("index.html", country_dict=Country_Info, country_list=country_info)
-    return Country_Info
+    return jsonify(Country_Info)
+
+def get_data2():
+    RESULTS = {'Country': []}
+    country_data2 = db.countries.find({'Year': 2017})
+    data2 = [i for i in country_data2]
+    for j in data2:
+        RESULTS['Country'].append({
+            'name': j.get('Country'),
+            'id': str(j.get('Country_Code')),
+            'year': j.get('Year'),
+            'Income_Adjusted_QOL': j.get('IncomeAdjusted_LMY_Quality_Of_Life_Score'),
+            'RT_EducationScore': j.get('IncomeAdjusted_LMY_Right_to_Education_Score'),
+            'RT_HealthScore': j.get('IncomeAdjusted_LMY_Right_to_Health_Score'),
+            'RT_HousingScore': j.get('IncomeAdjusted_LMY_Right_to_Housing_Score'),
+            'RT_FoodScore': j.get('IncomeAdjusted_LMY_Right_to_Food_Score'),
+            'RT_WorkScore': j.get('IncomeAdjusted_LMY_Right_to_Work_Score'),
+            'GDP_per_capita_': j.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
+        })
+
+    return RESULTS
