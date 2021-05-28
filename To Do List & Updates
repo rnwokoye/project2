@@ -37,6 +37,14 @@
 
 5.22.21
 
-- Bar graph
+- Bar Graph
     - Y Axis: 0-100 axis
     - X Axis: scores of country
+
+- Bubble Graph
+    - GDP X Axis
+    - Indicators on Y Axis
+
+- Line Chart
+    - X Axis: Time 2017
+    - Y Axis: Countries Quality of Life scores
