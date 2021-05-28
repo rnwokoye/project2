@@ -35,16 +35,18 @@
 
 
 
-5.22.21
+To Do
 
-- Bar Graph
-    - Y Axis: 0-100 axis
-    - X Axis: scores of country
-
-- Bubble Graph
-    - GDP X Axis
-    - Indicators on Y Axis
-
-- Line Chart
-    - X Axis: Time 2017
-    - Y Axis: Countries Quality of Life scores
+Dropdown
+    - Bar Graph
+        - Y Axis: 0-100 scale
+        - X Axis: All rights scores & Quality of life scores, each country using dropdown
+    - Bubble Graph
+        - X Axis: GDP/capita
+        - Y Axis: Right to Health
+        - Radius: QoL
+    
+No Drop Down
+    - Line Chart
+        - X Axis: Years 2007-2017
+        - Y Axis: Quality of Life
