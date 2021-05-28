@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Project 2</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body>
+<!-- Header -->
+  <header class="bg-primary bg-gradient text-white">
+    <div class="container px-4 text-center">
+      <hr> <h1 class="fw-bolder">Understanding Human Rights Through Data</h1> <hr>
+        <p class="lead">Interact with the Charts Below </p>
+    </div>
+  </header>
+
+<!-- Country Selection & Characteristics -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="well">
+          <select id="selDataset" onchange="optionChanged(this.value)">
+            <option value="" disabled selected hidden>Choose a Country</option>
+          </select>
+
+        </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Country Characteristics</h3>
+          </div>
+          <div id="sample-metadata" class="panel-body"></div>
+                  <!-- Enter Characteristics Here-->
+
+      </div>
+    </div>
+  </div>
+
+<!-- First Visual Section -->
+<hr>
+  <section class="" id="visual1">
+    <div class="row1">
+        <h3 class="text ml-5 mt-4">Bar Graph</h3>
+        <div class="row m-0">
+          <iframe class="col-lg-8 mr-auto" height="300" frameborder="0" scrolling="yes"></iframe>
+          <div class="col-lg-4 ml-auto">
+            <br>
+            <p class="text">Here we can have a short description of what this chart is telling us.</p>
+            
+          </div>
+        </div>
+      </div>
+  </section>
+<!-- Second Visual Section -->
+<hr>
+  <section id="visual2">
+    <div class="row2">
+      <h3 class="text ml-5 mt-4">Visual Two</h3>
+      <div class="row m-0">
+        <iframe class="col-lg-8 mr-auto" height="300" frameborder="0" scrolling="yes"></iframe>
+        <div class="col-lg-4 ml-auto">
+          <br>
+          <p class="text">Here we can have a short description of what this chart is telling us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- Third Visual Section -->
+<hr>
+  <section id="visual3">
+    <div class="row3">
+        <h3 class="text ml-5 mt-4">Visual Three</h3>
+        <div class="row m-0">
+          <iframe class="col-lg-8 mr-auto" height="300" frameborder="0" scrolling="yes"></iframe>
+          <div class="col-lg-4 ml-auto">
+            <br>
+            <p class="text">Here we can have a short description of what this chart is telling us.</p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="../static/js/app.js"></script>
+  <script src="style.css"></script>
+<hr>
+  <footer class="container-fluid text-center">
+    <p> <a class="gx-4 justify-content-center href" href="#header"> Back to Top </a> </p>
+<hr>
+  </footer>
+</body>
+
+</html>
+
