@@ -2,6 +2,13 @@
 
 Alex Schultz, Jennifer Duffy, Richard Nwokoye
 
+
+*"What gets measured, gets improved. When people have information on human rights in front of them it makes it easier to ask the right questions and seek out the best solutions.”*
+
+--Anne-Marie Brooks, co-founder of The Human Rights Measurement Initiative (HRMI)
+
+
+
 ![children2](https://user-images.githubusercontent.com/75215001/120033171-3c8ae780-bfc9-11eb-8d6d-dcfd200b7345.png)
 
 
