@@ -2,14 +2,14 @@
 
 var url = 'http://127.0.0.1:5000/data'
 // using this portion to test code
-// d3.json(url).then(function(data) {
-  // console.log(data.Country[0])
-  // var country = 'Aruba'
-  // var sample = data.Country
-  // console.log(sample.name)
-  // var filtersample = sample.filter(sampleobject => sampleobject.name == country);
-  // console.log(filtersample)
-// });
+d3.json(url).then(function(data) {
+  console.log(data.Country[0])
+  var country = 'Aruba'
+  var sample = data.Country
+  console.log(sample.name)
+  var filtersample = sample.filter(sampleobject => sampleobject.name == country);
+  console.log(filtersample)
+});
 //   var test = data.Country;
 //   test.forEach((country)=>{
 //     console.log(country.id)

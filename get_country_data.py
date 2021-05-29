@@ -1,52 +1,80 @@
 from flask import Flask, jsonify, render_template, redirect
 import pymongo
+import pandas as pd
+from pymongo import MongoClient 
 
 
-# Use pyMongo to establish mongo database connection
-conn = 'mongodb://localhost:27017'
-client = pymongo.MongoClient(conn)
-db = client.country_db
+# # Use pyMongo to establish mongo database connection
+client = MongoClient(host="localhost", port=27017)
+# or: client = MongoClient("mongodb://localhost:27017")
 
-def get_data():
-    Country_Info = {}
-    country_info = []
-    country_data = db.countries.find({'Year': 2017})
-    data = [i for i in country_data]
-    for i in data:
-        Country_data = {}
-        Country_Name = i.get('Country')
-        Country_data['id'] = str(i.get('_id'))
-        Country_data['name'] = i.get('Country')
-        Country_data['abv'] = i.get('Country_Code')
-        Country_data['Year'] = i.get('Year')
-        Country_data['Income_Adjusted_QOL'] = i.get('IncomeAdjusted_LMY_Quality_Of_Life_Score')
-        Country_data['RT_EducationScore'] = i.get('IncomeAdjusted_LMY_Right_to_Education_Score')
-        Country_data['RT_HealthScore'] = i.get('IncomeAdjusted_LMY_Right_to_Health_Score')
-        Country_data['RT_HousingScore'] = i.get('IncomeAdjusted_LMY_Right_to_Housing_Score')
-        Country_data['RT_FoodScore'] = i.get('IncomeAdjusted_LMY_Right_to_Food_Score')
-        Country_data['RT_WorkScore'] = i.get('IncomeAdjusted_LMY_Right_to_Work_Score')
-        Country_data['GDP_per_capita_'] = i.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
-        Country_Info[Country_Name] = Country_data
-        country_info.append(Country_data)
+def data_etl():
 
-    return jsonify(Country_Info)
+    # coulmns to rename in dataframe:
+    rename = {
+    'IncomeAdjusted_LMY_Right_to_Education_Score.1':'IncomeAdjusted_LMY_Right_to_Education_Score_1',
+    'IncomeAdjusted_LMY_Right_to_Health_Score.1': 'IncomeAdjusted_LMY_Right_to_Health_Score_1',
+    'IncomeAdjusted_LMY_Right_to_Housing_Score.1': 'IncomeAdjusted_LMY_Right_to_Housing_Score_1',
+    'IncomeAdjusted_LMY_Right_to_Food_Score.1': 'IncomeAdjusted_LMY_Right_to_Food_Score_1',
+    'IncomeAdjusted_LMY_Right_to_Work_Score.1': 'IncomeAdjusted_LMY_Right_to_Work_Score_1',
 
-def get_data2():
-    RESULTS = {'Country': []}
-    country_data2 = db.countries.find({'Year': 2017})
-    data2 = [i for i in country_data2]
-    for j in data2:
-        RESULTS['Country'].append({
-            'name': j.get('Country'),
-            'id': str(j.get('Country_Code')),
-            'year': j.get('Year'),
-            'Income_Adjusted_QOL': j.get('IncomeAdjusted_LMY_Quality_Of_Life_Score'),
-            'RT_EducationScore': j.get('IncomeAdjusted_LMY_Right_to_Education_Score'),
-            'RT_HealthScore': j.get('IncomeAdjusted_LMY_Right_to_Health_Score'),
-            'RT_HousingScore': j.get('IncomeAdjusted_LMY_Right_to_Housing_Score'),
-            'RT_FoodScore': j.get('IncomeAdjusted_LMY_Right_to_Food_Score'),
-            'RT_WorkScore': j.get('IncomeAdjusted_LMY_Right_to_Work_Score'),
-            'GDP_per_capita_': j.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
-        })
+    'IncomeAdjusted_HiY_Right_to_Education_Score.1': 'IncomeAdjusted_HiY_Right_to_Education_Score_1',
+    'IncomeAdjusted_HiY_Right_to_Health_Score.1': 'IncomeAdjusted_HiY_Right_to_Health_Score_1',
+    'IncomeAdjusted_HiY_Right_to_Housing_Score.1': 'IncomeAdjusted_HiY_Right_to_Housing_Score_1',
+    'IncomeAdjusted_HiY_Right_to_Food_Score.1': 'IncomeAdjusted_HiY_Right_to_Food_Score_1',
+    'IncomeAdjusted_HiY_Right_to_Work_Score.1': 'IncomeAdjusted_HiY_Right_to_Work_Score_1',
+    
+    'GlobalBest_LMY_Right_to_Education_Score.1': 'GlobalBest_LMY_Right_to_Education_Score_1',
+    'GlobalBest_LMY_Right_to_Health_Score.1': 'GlobalBest_LMY_Right_to_Health_Score_1',
+    'GlobalBest_LMY_Right_to_Housing_Score.1': 'GlobalBest_LMY_Right_to_Housing_Score_1',
+    'GlobalBest_LMY_Right_to_Food_Score.1': 'GlobalBest_LMY_Right_to_Food_Score_1',
+    'GlobalBest_LMY_Right_to_Work_Score.1': 'GlobalBest_LMY_Right_to_Work_Score_1',
+    'Most_Recent_Observation_%_Population_Not_Absolutely_Poor_(>$3.20_2011PPP$)': 'Most_Recent_Observation_%_Population_Not_Absolutely_Poor_(>$3_20_2011PPP$)',
+    'Year_of_Most_Recent_Observation_on_%_Population_Not_Absolutely_Poor_(>$3.20_2011PPP$)': 'Year_of_Most_Recent_Observation_on_%_Population_Not_Absolutely_Poor_(>$3_20_2011PPP$)',
+    'GlobalBest_HiY_Right_to_Education_Score.1': 'GlobalBest_HiY_Right_to_Education_Score_1',
+    'GlobalBest_HiY_Right_to_Health_Score.1': 'GlobalBest_HiY_Right_to_Health_Score_1',
+    'GlobalBest_HiY_Right_to_Housing_Score.1': 'GlobalBest_HiY_Right_to_Housing_Score_1',
+    'GlobalBest_HiY_Right_to_Food_Score.1': 'GlobalBest_HiY_Right_to_Food_Score_1',
+    'GlobalBest_HiY_Right_to_Work_Score.1': 'GlobalBest_HiY_Right_to_Work_Score_1'
+    }
 
-    return RESULTS
+    data_source = "data/"
+    file_name = "HRMI_Website_DataSet_2020.6.22.xlsx"
+
+    # read data source
+    sheets_dict = pd.read_excel(data_source+file_name, sheet_name=None)
+    sheetsDF = {}
+    for i in list(sheets_dict.keys()):
+        data = i+'DF'
+        sheetsDF[data] = sheets_dict[i]
+
+    # merge the dataframes
+    dataDF = {**sheetsDF['ESR_LMY_IncomeAdjustedDF'], **sheetsDF['ESR_HiY_IncomeAdjustedDF'],**sheetsDF['ESR_LMY_GlobalBestDF'], \
+       **sheetsDF['ESR_HiY_GlobalBestDF'], **sheetsDF['ESR_Sex_DisaggregatedDF']}
+
+    recs = pd.DataFrame(dataDF)
+    recs.rename(columns=rename, inplace=True)
+
+    return recs
+
+def load_data(recs):
+
+    db = client.CountryData
+    countries = db.countries
+
+    if countries.count() == 0:
+        countries.insert_many(recs.to_dict('records'))
+        print('Data Inserted')
+    else:
+        print('Collection already exists')
+
+    return
+
+
+
+
+
+
+
+
+

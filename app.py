@@ -4,28 +4,42 @@ from flask_cors import CORS, cross_origin
 from flask_pymongo import PyMongo
 import pandas as pd
 import numpy as np
-from get_country_data import get_data, get_data2
+from get_country_data import data_etl, load_data
+from pymongo import MongoClient 
 
 
 
 # create Flask instance
+
 app = Flask(__name__)
 CORS(app)
 
-# Use pyMongo to establish mongo database connection
-mongo = PyMongo(app, uri="mongodb://localhost:27017/CountryData5")
+client = MongoClient(host="localhost", port=27017)
 
 
-# index route
+# Extract the data
+records = data_etl()
+
+# Transform and load to MongoDB
+mydata = load_data(records)
+
+
+
 @app.route("/")
 def index():
+
     return render_template("index.html")
 
-# create route that renders index page
+
+
 @app.route("/data")
-def data():
+def get_data_from_database():
+
+    db = client.CountryData
+    countries = db.countries
+
     RESULTS = {'Country': [], "Stats": []}
-    country_data = mongo.db.countries.find({'Year': 2017})
+    country_data = countries.find({'Year': 2017})
     data2 = [i for i in country_data]
     res2 = pd.DataFrame(data2).fillna(0)
     res3 = res2.to_dict('records')
@@ -53,6 +67,7 @@ def data():
             'GDP_per_capita': j.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
             
         })
+
     return jsonify(RESULTS)
 
 
