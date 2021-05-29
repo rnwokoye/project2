@@ -41,20 +41,20 @@ def get_data_from_database():
     RESULTS = {'Country': [], "Stats": []}
     country_data = countries.find({'Year': 2017})
     data2 = [i for i in country_data]
-    res2 = pd.DataFrame(data2).fillna(0)
+    res2 = pd.DataFrame(data2).fillna(0).round(2)
     res3 = res2.to_dict('records')
     for j in res3:
         RESULTS['Country'].append({
-            'name': j.get('Country'),
-            'id': str(j.get('Country_Code')),
-            'year': j.get('Year'),
-            'Income_Adjusted_QOL': j.get('IncomeAdjusted_LMY_Quality_Of_Life_Score'),
-            'RT_EducationScore': j.get('IncomeAdjusted_LMY_Right_to_Education_Score'),
-            'RT_HealthScore': j.get('IncomeAdjusted_LMY_Right_to_Health_Score'),
-            'RT_HousingScore': j.get('IncomeAdjusted_LMY_Right_to_Housing_Score'),
-            'RT_FoodScore': j.get('IncomeAdjusted_LMY_Right_to_Food_Score'),
-            'RT_WorkScore': j.get('IncomeAdjusted_LMY_Right_to_Work_Score'),
-            'GDP_per_capita_': j.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
+            'Name': j.get('Country'),
+            'code': str(j.get('Country_Code')),
+            'Year': j.get('Year'),
+            'QualityOfLife': j.get('IncomeAdjusted_LMY_Quality_Of_Life_Score'),
+            'Education': j.get('IncomeAdjusted_LMY_Right_to_Education_Score'),
+            'Health': j.get('IncomeAdjusted_LMY_Right_to_Health_Score'),
+            'Housing': j.get('IncomeAdjusted_LMY_Right_to_Housing_Score'),
+            'Food': j.get('IncomeAdjusted_LMY_Right_to_Food_Score'),
+            'Work': j.get('IncomeAdjusted_LMY_Right_to_Work_Score'),
+            'GDP': j.get('GDP_per_capita_(2011_PPP$)_for_Most_Recent_Observation_on_Net_Secondary_Enrollment')
         }),
         RESULTS['Stats'].append({
             'name': j.get('Country'),
