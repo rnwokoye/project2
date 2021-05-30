@@ -38,7 +38,6 @@ dropdown()
 function optionChanged(newCountry){
   buildMetadata(newCountry);
   buildCharts(newCountry);
-  gauge_plot(newCountry);
 }
 
 //  How to get the chart for the default country
@@ -63,8 +62,10 @@ function buildCharts(sample) {
   // Use d3.json to get data
   d3.json(url).then(function(data) {
       var countryInfo = data.Country;
+      console.log(countryInfo)
       var filterdata = countryInfo.filter(sampleobject => sampleobject.Name == sample)[0];
       var result = filterdata;
+      console.log(result.GDP)
       // The charts values here
       var GDP = result.GDP / 100;
       var Education = result.Education;
@@ -74,6 +75,8 @@ function buildCharts(sample) {
       var Work = result.Work;
       var QalityOfLife = result.QualityOfLife;
       var yAxis = ['GDP','Education','Food','Health','Work','Housing']
+      var yAxis2 = ['Education','Food','Health','Work','Housing']
+      var xAxis2 = [Education,Food,Health,Work,Housing,]
       var xAxis = [GDP,Education,Food,Health,Work,Housing,]
       console.log(QalityOfLife)
 
@@ -110,6 +113,33 @@ function buildCharts(sample) {
       }
 
       Plotly.newPlot('gauge', gauge_plot, gaugelayout);
+
+
+
+      var bubbledata = [{
+        x: yAxis2,
+        y: xAxis2,
+        text: yAxis2,
+        mode: 'markers',
+        marker: {
+          size: xAxis2,
+          color: xAxis,
+          coloscale: "Earth"
+        }
+      }];
+
+      var bubblelayout = {
+        title: "Test Bubble",
+        xaxis: {
+          title: "GDP One"
+        }
+      }
+
+      Plotly.newPlot('bubble', bubbledata, bubblelayout)
       
-         })    
+  })    
+
+
+
+        
 }
