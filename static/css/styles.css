@@ -1,0 +1,15 @@
+.jumbotron {
+    background-image: url(../img/background_images3.png);
+    background-size: auto;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+.jumbotron h1 {
+    opacity: 0.8;
+}
+
+.jumbotron p {
+    opacity: 0.9;
+    font-weight: bold;
+}

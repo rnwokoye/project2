@@ -2,21 +2,9 @@
 
 var url = 'http://127.0.0.1:5000/data'
 // using this portion to test code
-// d3.json(url).then(function(data) {
-  // console.log(data.Country[0])
-  // var country = 'Aruba'
-  // var sample = data.Country
-  // console.log(sample.name)
-  // var filtersample = sample.filter(sampleobject => sampleobject.name == country);
-  // console.log(filtersample)
-// });
-//   var test = data.Country;
-//   test.forEach((country)=>{
-//     console.log(country.id)
-//     // AID.append("name")
-//     // .text()
-//   })
-// });
+d3.json(url).then(function(data) {
+});
+
 
 function dropdown(){
   var url = 'http://127.0.0.1:5000/data'
@@ -25,52 +13,116 @@ function dropdown(){
       var countries = data.Country;
       countries.forEach((country)=>{
           ID.append("option")
-          .text(country.name)
-          // .property("value",country.name)
+          .text(country.Name)
       })
       var country1 = countries[0];
-      buildMetadata(country1);
-      // buildCharts(country1);
+      buildMetadata(country1.Name);
+      buildCharts(country1.Name);
   })
 }
 dropdown()
 
 function optionChanged(newCountry){
-  buildMetadata(newCountry)
-  // buildCharts(newCountry)
-  // gguage_plot(newCountry)
+  buildMetadata(newCountry);
+  buildCharts(newCountry);
 }
-
 
 function buildMetadata(country){
   d3.json(url).then(function(data){
     var countryInfo = data.Country
-    var filterdata = countryInfo.filter(sampleobject => sampleobject.name == country);
-    var result = filterdata[0];
+    var filterdata = countryInfo.filter(sampleobject => sampleobject.Name == country)[0];
+    var result = filterdata;
     var sampleData = d3.select("#sample-metadata");
     sampleData.html("");
     Object.entries(result).forEach(function([key, value]){
-      // fix this if condition
-      if(result) {
-        var row = sampleData.append("p");
-        row.text(`${key}: ${value}`)
-      }
+      var row = sampleData.append("p");
+      row.text(`${key}: ${value}`)
     })
   })
 
 }
 
 // ToDo Wite code for charts here:
+function buildCharts(sample) {
+  // Use d3.json to get data
+  d3.json(url).then(function(data) {
+      var countryInfo = data.Country;
+      // console.log(countryInfo)
+      var filterdata = countryInfo.filter(sampleobject => sampleobject.Name == sample)[0];
+      var result = filterdata;
+      // console.log(result.GDP)
+  
+      var GDP = result.GDP / 100;
+      var Education = result.Education;
+      var Food = result.Food;
+      var Health = result.Health;
+      var Housing = result.Housing;
+      var Work = result.Work;
+      var QalityOfLife = result.QualityOfLife;
+      var yAxis = ['GDP','Education','Food','Health','Work','Housing']
+      var yAxis2 = ['Education','Food','Health','Work','Housing']
+      var xAxis2 = [Education,Food,Health,Work,Housing,]
+      var xAxis = [GDP,Education,Food,Health,Work,Housing,]
+      // console.log(QalityOfLife)
 
-// function buildCharts(sample) {
-//   // Use d3.json to get data
-//   d3.json(url).then(function(data) {
-//       var metadata = data.Country;
-//       var filterdata = metadata.filter(sampleobject => sampleobject.Year==sample);
-//       var result = filterdata[0];
-//       var OTU_ids = result.otu_ids;
-//       var OTU_labels = result.otu_labels;
-//       var samplevalue = result.sample_values;
-//       console.log(metadata)
-//   })
-// }
+      //barchart Horizontal:
+      var barchart = [{
+        y: yAxis,
+        x: xAxis,
+        type: 'bar',
+        orientation: 'h'
+      }];
+
+      var barlayout = {
+        title: "Top RIghts Scores"
+      }
+
+      Plotly.newPlot('bar', barchart, barlayout)
+
+      // guage_plot
+      var gauge_plot = [{
+        domain: { x: [0, 1], y: [0, 1] },
+        value: QalityOfLife,
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+        axis: { range: [null, 100] },
+        bar: {color: '7EA397'},
+        bgcolor: "white"        
+                }
+
+      }];
+      var gaugelayout = {
+        title: "Quality of Life Score",
+        paper_bgcolor: 'white'
+      }
+
+      Plotly.newPlot('gauge', gauge_plot, gaugelayout);
+
+      var bubbledata = [{
+        x: yAxis2,
+        y: xAxis2,
+        text: yAxis2,
+        mode: 'markers',
+        marker: {
+          size: xAxis2,
+          color: xAxis,
+          coloscale: "Earth"
+        }
+      }];
+
+      var bubblelayout = {
+        title: "BubbleChart",
+        xaxis: {
+          title: "Scores vs GDP"
+        }
+      }
+
+      Plotly.newPlot('bubble', bubbledata, bubblelayout)
+      
+  })    
+
+
+
+        
+}
