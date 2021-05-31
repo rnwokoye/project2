@@ -1,13 +1,15 @@
 // define drop down menu:
 
-var url = 'http://127.0.0.1/data'
+// var url = 'http://127.0.0.1/data'
+var url = "https://jhu-grp2-project2.herokuapp.com/data"
 // using this portion to test code
 d3.json(url).then(function(data) {
 });
 
 
 function dropdown(){
-  var url = 'http://127.0.0.1/data'
+  // var url = 'http://127.0.0.1/data'
+  var url = "https://jhu-grp2-project2.herokuapp.com/data"
   var ID = d3.select("#selDataset");
   d3.json(url).then(function(data){
       var countries = data.Country;
