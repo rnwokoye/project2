@@ -10,22 +10,8 @@ from pymongo import MongoClient
 
 
 
-# load_dotenv()
-
-# # get connection url from environment
-# DATABASE_URL=f'mongodb+srv://db_user1:{os.environ.get("password")}'\
-# 	      'cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
-# 	      'retryWrites=true&w=majority' 
-
-
-# client = MongoClient(DATABASE_URL)
-# db = client.CountryData
-
-# create Flask instance
-
 app = Flask(__name__)
 CORS(app)
-
 
 # Extract the data
 records = data_etl()
@@ -34,12 +20,10 @@ records = data_etl()
 mydata = load_data(records)
 
 
-
 @app.route("/")
 def index():
 
     return render_template("index.html")
-
 
 
 @app.route("/data")
@@ -79,7 +63,5 @@ def get_data_from_database():
 
     return jsonify(RESULTS)
 
-
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run()

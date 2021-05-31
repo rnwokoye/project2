@@ -3,20 +3,8 @@
 var url = 'http://127.0.0.1:5000/data'
 // using this portion to test code
 d3.json(url).then(function(data) {
-  // console.log(data.Country[0].Name)
-  // var country = 'Aruba'
-  // var sample = data.Country
-  // console.log(sample.name)
-  // var filtersample = sample.filter(sampleobject => sampleobject.name == country);
-  // console.log(filtersample)
 });
-//   var test = data.Country;
-//   test.forEach((country)=>{
-//     console.log(country.id)
-//     // AID.append("name")
-//     // .text()
-//   })
-// });
+
 
 function dropdown(){
   var url = 'http://127.0.0.1:5000/data'
@@ -26,11 +14,10 @@ function dropdown(){
       countries.forEach((country)=>{
           ID.append("option")
           .text(country.Name)
-          // .property("value",country.name)
       })
       var country1 = countries[0];
-      buildMetadata(country1);
-      buildCharts(country1);
+      buildMetadata(country1.Name);
+      buildCharts(country1.Name);
   })
 }
 dropdown()
@@ -40,7 +27,6 @@ function optionChanged(newCountry){
   buildCharts(newCountry);
 }
 
-//  How to get the chart for the default country
 function buildMetadata(country){
   d3.json(url).then(function(data){
     var countryInfo = data.Country
@@ -57,16 +43,15 @@ function buildMetadata(country){
 }
 
 // ToDo Wite code for charts here:
-
 function buildCharts(sample) {
   // Use d3.json to get data
   d3.json(url).then(function(data) {
       var countryInfo = data.Country;
-      console.log(countryInfo)
+      // console.log(countryInfo)
       var filterdata = countryInfo.filter(sampleobject => sampleobject.Name == sample)[0];
       var result = filterdata;
-      console.log(result.GDP)
-      // The charts values here
+      // console.log(result.GDP)
+  
       var GDP = result.GDP / 100;
       var Education = result.Education;
       var Food = result.Food;
@@ -78,7 +63,7 @@ function buildCharts(sample) {
       var yAxis2 = ['Education','Food','Health','Work','Housing']
       var xAxis2 = [Education,Food,Health,Work,Housing,]
       var xAxis = [GDP,Education,Food,Health,Work,Housing,]
-      console.log(QalityOfLife)
+      // console.log(QalityOfLife)
 
       //barchart Horizontal:
       var barchart = [{
@@ -114,8 +99,6 @@ function buildCharts(sample) {
 
       Plotly.newPlot('gauge', gauge_plot, gaugelayout);
 
-
-
       var bubbledata = [{
         x: yAxis2,
         y: xAxis2,
@@ -129,9 +112,9 @@ function buildCharts(sample) {
       }];
 
       var bubblelayout = {
-        title: "Test Bubble",
+        title: "BubbleChart",
         xaxis: {
-          title: "GDP One"
+          title: "Scores vs GDP"
         }
       }
 
