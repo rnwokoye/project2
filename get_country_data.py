@@ -9,8 +9,9 @@ load_dotenv()
 
 # get connection url from environment
 DATABASE_URL=f'mongodb+srv://db_user1:{os.environ.get("password")}'\
-	      'cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
+	      '@cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
 	      'retryWrites=true&w=majority' 
+
 
 
 client = MongoClient(DATABASE_URL)
