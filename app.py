@@ -25,10 +25,10 @@ app = Flask(__name__)
 CORS(app)
 
 # Extract the data
-records = data_etl()
+# records = data_etl()
 
 # # Transform and load to MongoDB
-mydata = load_data(records)
+# mydata = load_data(records)
 
 
 @app.route("/")
