@@ -4,9 +4,20 @@ from flask import Flask, jsonify, render_template, redirect
 from flask_cors import CORS, cross_origin
 # import pymongo
 import pandas as pd
-from get_country_data import data_etl, load_data, client, db
+from get_country_data import data_etl, load_data
 from pymongo import MongoClient 
 
+
+load_dotenv()
+
+# get connection url from environment
+DATABASE_URL=f'mongodb+srv://db_user1:{os.environ.get("password")}'\
+	      '@cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
+	      'retryWrites=true&w=majority' 
+
+
+client = MongoClient(DATABASE_URL)
+db = client.CountryData
 
 
 
