@@ -1,20 +1,30 @@
+from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, render_template, redirect
 from flask_cors import CORS, cross_origin
-from flask_pymongo import PyMongo
+# import pymongo
 import pandas as pd
-import numpy as np
-from get_country_data import data_etl, load_data
+from get_country_data import data_etl, load_data, client, db
 from pymongo import MongoClient 
 
 
+
+
+# load_dotenv()
+
+# # get connection url from environment
+# DATABASE_URL=f'mongodb+srv://db_user1:{os.environ.get("password")}'\
+# 	      'cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
+# 	      'retryWrites=true&w=majority' 
+
+
+# client = MongoClient(DATABASE_URL)
+# db = client.CountryData
 
 # create Flask instance
 
 app = Flask(__name__)
 CORS(app)
-
-client = MongoClient(host="localhost", port=27017)
 
 
 # Extract the data
@@ -35,7 +45,6 @@ def index():
 @app.route("/data")
 def get_data_from_database():
 
-    db = client.CountryData
     countries = db.countries
 
     RESULTS = {'Country': [], "Stats": []}

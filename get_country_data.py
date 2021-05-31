@@ -1,12 +1,21 @@
+from dotenv import load_dotenv
+import os
 from flask import Flask, jsonify, render_template, redirect
-import pymongo
 import pandas as pd
 from pymongo import MongoClient 
 
 
-# # Use pyMongo to establish mongo database connection
-client = MongoClient(host="localhost", port=27017)
-# or: client = MongoClient("mongodb://localhost:27017")
+load_dotenv()
+
+# get connection url from environment
+DATABASE_URL=f'mongodb+srv://db_user1:{os.environ.get("password")}'\
+	      'cluster0.ml5bh.mongodb.net/myFirstDatabase?'\
+	      'retryWrites=true&w=majority' 
+
+
+client = MongoClient(DATABASE_URL)
+db = client.CountryData
+
 
 def data_etl():
 
@@ -59,14 +68,13 @@ def data_etl():
 
 def load_data(recs):
 
-    db = client.CountryData
     countries = db.countries
 
     if countries.count() == 0:
         countries.insert_many(recs.to_dict('records'))
         print('Data Inserted')
     else:
-        print('Collection already exists')
+        print('Collection already exists, no data inserted')
 
     return
 
