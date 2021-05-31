@@ -37,6 +37,13 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/get_database_records")
+def get_database_records():
+    records = data_etl()
+    load_data(records)
+
+    return
+
 @app.route("/data")
 def get_data_from_database():
 
